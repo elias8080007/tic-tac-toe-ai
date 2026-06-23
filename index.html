@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Explainable Tic-Tac-Toe AI</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+
+  <main class="game-container">
+
+    <header class="game-header">
+      <p class="tag">MINIMAX AI PROJECT</p>
+
+      <h1>Explainable Tic-Tac-Toe AI</h1>
+
+      <p class="description">
+        Play against an AI powered by Minimax and
+        alpha-beta pruning.
+      </p>
+    </header>
+
+    <!-- Game settings -->
+    <section class="settings-panel">
+
+  <div class="setting difficulty-setting">
+    <label for="difficulty-select">
+      Difficulty Level
+    </label>
+
+    <select
+      id="difficulty-select"
+      class="difficulty-select difficulty-hard"
+    >
+      <option value="easy">Easy</option>
+      <option value="medium">Balanced</option>
+      <option value="hard" selected>Expert</option>
+    </select>
+
+    <p
+      id="difficulty-description"
+      class="setting-description"
+    >
+      Optimal AI using Minimax and alpha-beta pruning.
+    </p>
+  </div>
+
+  <div class="setting symbol-setting">
+    <label for="symbol-select">
+      Your Marker
+    </label>
+
+    <select
+      id="symbol-select"
+      class="symbol-select symbol-x"
+    >
+      <option value="X">X</option>
+      <option value="O">O</option>
+    </select>
+
+    <p
+      id="symbol-description"
+      class="setting-description"
+    >
+      You make the opening move.
+    </p>
+  </div>
+
+  <button
+    id="new-game-button"
+    class="primary-button"
+  >
+    Start New Game
+  </button>
+
+</section>
+
+    <!-- Player information -->
+    <section class="player-information">
+
+  <div class="player-card">
+    <div class="player-avatar human-avatar">
+      YOU
+    </div>
+
+    <div class="player-details">
+      <span class="player-label">Your Marker</span>
+
+      <strong
+        id="human-symbol"
+        class="marker marker-x"
+      >
+        X
+      </strong>
+    </div>
+  </div>
+
+  <div class="versus-badge">
+    VS
+  </div>
+
+  <div class="player-card">
+    <div class="player-avatar ai-avatar">
+      AI
+    </div>
+
+    <div class="player-details">
+      <span class="player-label">AI Marker</span>
+
+      <strong
+        id="ai-symbol"
+        class="marker marker-o"
+      >
+        O
+      </strong>
+    </div>
+  </div>
+
+</section>
+
+    <!-- Status -->
+    <p id="status" class="status">
+      Your turn
+    </p>
+
+    <!-- Tic-Tac-Toe board -->
+    <section id="board" class="board">
+
+      <button
+        class="cell"
+        data-index="0"
+        aria-label="Row 1 column 1"
+      ></button>
+
+      <button
+        class="cell"
+        data-index="1"
+        aria-label="Row 1 column 2"
+      ></button>
+
+      <button
+        class="cell"
+        data-index="2"
+        aria-label="Row 1 column 3"
+      ></button>
+
+      <button
+        class="cell"
+        data-index="3"
+        aria-label="Row 2 column 1"
+      ></button>
+
+      <button
+        class="cell"
+        data-index="4"
+        aria-label="Row 2 column 2"
+      ></button>
+
+      <button
+        class="cell"
+        data-index="5"
+        aria-label="Row 2 column 3"
+      ></button>
+
+      <button
+        class="cell"
+        data-index="6"
+        aria-label="Row 3 column 1"
+      ></button>
+
+      <button
+        class="cell"
+        data-index="7"
+        aria-label="Row 3 column 2"
+      ></button>
+
+      <button
+        class="cell"
+        data-index="8"
+        aria-label="Row 3 column 3"
+      ></button>
+
+    </section>
+
+    <!-- AI explanation -->
+    <section class="information-panel">
+
+      <div class="panel-heading">
+        <div>
+          <p class="panel-label">EXPLAINABLE AI</p>
+          <h2>Why did the AI choose this move?</h2>
+        </div>
+
+        <span class="ai-icon">AI</span>
+      </div>
+
+      <p id="ai-explanation" class="ai-explanation">
+        The AI explanation will appear after its first move.
+      </p>
+
+      <div class="ai-metrics">
+
+        <div class="metric">
+          <span>Algorithm</span>
+          <strong id="algorithm-used">—</strong>
+        </div>
+
+        <div class="metric">
+          <span>Minimax score</span>
+          <strong id="minimax-score">—</strong>
+        </div>
+
+        <div class="metric">
+          <span>States evaluated</span>
+          <strong id="states-evaluated">0</strong>
+        </div>
+
+        <div class="metric">
+          <span>Decision time</span>
+          <strong id="decision-time">0 ms</strong>
+        </div>
+
+      </div>
+
+    </section>
+
+    <div class="bottom-grid">
+
+      <!-- Game statistics -->
+      <section class="information-panel">
+
+        <div class="panel-heading">
+          <div>
+            <p class="panel-label">PERFORMANCE</p>
+            <h2>Game Statistics</h2>
+          </div>
+        </div>
+
+        <div class="statistics">
+
+          <div class="stat-card">
+            <strong id="human-wins">0</strong>
+            <span>Your wins</span>
+          </div>
+
+          <div class="stat-card">
+            <strong id="ai-wins">0</strong>
+            <span>AI wins</span>
+          </div>
+
+          <div class="stat-card">
+            <strong id="draws">0</strong>
+            <span>Draws</span>
+          </div>
+
+        </div>
+
+        <button id="reset-statistics-button" class="secondary-button">
+          Reset Statistics
+        </button>
+
+      </section>
+
+      <!-- Move history -->
+      <section class="information-panel">
+
+        <div class="panel-heading">
+          <div>
+            <p class="panel-label">GAME LOG</p>
+            <h2>Move History</h2>
+          </div>
+        </div>
+
+      <ol id="move-history" class="move-history">
+  <li class="empty-log">
+    Your moves and the AI decisions will appear here.
+  </li>
+</ol>
+
+      </section>
+
+    </div>
+
+  </main>
+
+</body>
+</html>
